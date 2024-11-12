@@ -7,6 +7,7 @@ import { docker, streamContainerLogs } from '@utils/docker'
 import { handler } from '@utils/grpc'
 import { getConfig } from '@utils/config'
 import { Logger, getLogger } from '@utils/logger'
+import dockerNames from 'docker-names'
 
 export const jobsServiceDefinitions = loadPackageDefinition(
   loadSync(
@@ -31,10 +32,16 @@ export const JobsService = {
     const job = config.jobs[call.request.name]
     logger.info({ name: call.request.name, ...job }, `running job ${call.request.name}`)
 
+    const hostConfig = process.env.DOCKER_NETWORK ? { NetworkMode: process.env.DOCKER_NETWORK } : {}
     const env = call.request.overrides.containerOverrides[0]?.env.map(e => `${e.name}=${e.value}`)
+    const containerName = job.name == null
+      ? dockerNames.getRandomName()
+      : job.name + "_" + Math.random().toString(36).substring(7)
     const container = await docker.createContainer({
       Image: job.image,
       Env: env,
+      name: containerName,
+      HostConfig: hostConfig
     })
 
     await container.start()

@@ -25,6 +25,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - DOCKER_NETWORK=test-network
 
 configs:
   cloud-run-jobs-config:

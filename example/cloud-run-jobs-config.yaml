@@ -1,3 +1,4 @@
 jobs:
   hello-world:
+    name: hello-world-container
     image: hello-world:latest
