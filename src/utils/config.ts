@@ -11,7 +11,8 @@ export class Config {
 
   jobs: {
     [name: string]: {
-      image: string
+      name?: string; // name of the container
+      image: string; // docker image to run
     }
   } = {}
 
