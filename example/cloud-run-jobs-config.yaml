@@ -3,6 +3,9 @@ jobs:
     name: hello-world-container
     image: hello-world:latest
     command: ["/hello"]
+    # volumes:
+    #   - /path/to/folder:/app
+    # network: example-network
   hello-world-without-command:
     name: hello-world-without-command-container
     image: hello-world:latest

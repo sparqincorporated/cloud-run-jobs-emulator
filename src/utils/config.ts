@@ -14,6 +14,8 @@ export class Config {
       name?: string; // name of the container
       image: string; // docker image to run
       command?: string[]; // command to run in the container
+      volumes?: string[]; // volumes to mount
+      network?: string; // network to run the container in
     }
   } = {}
 
