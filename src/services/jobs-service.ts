@@ -32,7 +32,6 @@ export const JobsService = {
     const job = config.jobs[call.request.name]
     logger.info({ name: call.request.name, ...job }, `running job ${call.request.name}`)
 
-    const hostConfig = process.env.DOCKER_NETWORK ? { NetworkMode: process.env.DOCKER_NETWORK } : {}
     const env = call.request.overrides.containerOverrides[0]?.env.map(e => `${e.name}=${e.value}`)
     const containerName = job.name == null
       ? dockerNames.getRandomName()
@@ -41,7 +40,10 @@ export const JobsService = {
       Image: job.image,
       Env: env,
       name: containerName,
-      HostConfig: hostConfig,
+      HostConfig: {
+        NetworkMode: job.network,
+        Binds: job.volumes,
+      },
       Cmd: job.command,
     })
 
