@@ -41,7 +41,8 @@ export const JobsService = {
       Image: job.image,
       Env: env,
       name: containerName,
-      HostConfig: hostConfig
+      HostConfig: hostConfig,
+      Cmd: job.command,
     })
 
     await container.start()
