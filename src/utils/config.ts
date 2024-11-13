@@ -13,6 +13,7 @@ export class Config {
     [name: string]: {
       name?: string; // name of the container
       image: string; // docker image to run
+      command?: string[]; // command to run in the container
     }
   } = {}
 

@@ -2,3 +2,7 @@ jobs:
   hello-world:
     name: hello-world-container
     image: hello-world:latest
+    command: ["/hello"]
+  hello-world-without-command:
+    name: hello-world-without-command-container
+    image: hello-world:latest
