@@ -48,7 +48,7 @@ export const JobsService = {
 
       // Get environment variables
       const fileEnvs = getEnvs(job.env_file, "/env");
-      const env =
+      const envOverrides =
         call.request.overrides.containerOverrides[0]?.env.map(
           (e) => `${e.name}=${e.value}`
         ) || [];
@@ -61,7 +61,7 @@ export const JobsService = {
 
       container = await docker.createContainer({
         Image: job.image,
-        Env: [...fileEnvs, ...env],
+        Env: [...fileEnvs, ...envOverrides],
         name: containerName,
         HostConfig: {
           NetworkMode: job.network,
