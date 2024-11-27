@@ -28,8 +28,6 @@ export const startServer = async (server: Server): Promise<Server> => {
     })
   })
 
-  server.start()
-
   return server
 }
 

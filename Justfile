@@ -49,5 +49,25 @@ dev *FLAGS: (env-check)
     --volume ./src:/cloud-run-jobs-emulator/src/ \
     --volume ./example/cloud-run-jobs-config.yaml:/cloud-run-jobs-config.yaml \
     --volume /var/run/docker.sock:/var/run/docker.sock \
+    --volume ./example/variables.env:/env/variables.env \
     --publish 8123:8123 \
     {{docker-image-name}}:dev
+
+build-demo-app:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  {{docker}} build -t demo-app -f example/demo-app/Dockerfile ./example/demo-app
+
+pull-hello-world:
+  #!/usr/bin/env bash
+  set -euo pipefail
+
+  {{docker}} pull hello-world:latest
+
+setup-images:
+  just build-demo-app
+  just pull-hello-world
+
+run:
+  npx tsx example/run.ts

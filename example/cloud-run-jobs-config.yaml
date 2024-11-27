@@ -6,6 +6,13 @@ jobs:
     # volumes:
     #   - /path/to/folder:/app
     # network: example-network
+    env_file:
+      - variables.env
   hello-world-without-command:
     name: hello-world-without-command-container
     image: hello-world:latest
+  demo-app:
+    name: demo-app-container
+    image: demo-app:latest
+    env_file:
+      - variables.env

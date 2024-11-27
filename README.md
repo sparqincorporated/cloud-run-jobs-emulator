@@ -41,3 +41,20 @@ jobs:
   another-great-job:
     image: my-docker-image:tag
 ```
+
+## Development
+
+### Build and Run Server
+
+```sh
+just build
+just dev
+```
+
+### Run Example
+
+```sh
+just setup-images
+npm i
+just run
+```
