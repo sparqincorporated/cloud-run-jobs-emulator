@@ -2,11 +2,11 @@ import { Metadata, ServiceError } from "@grpc/grpc-js";
 import { status as grpcStatus } from '@grpc/grpc-js';
 
 /**
- * gRPCエラーを生成する関数
- * @param code - gRPCのステータスコード
- * @param message - エラーのメッセージ
- * @param metadataEntries - メタデータのキーと値のペア（オプション）
- * @returns ServiceErrorオブジェクト
+ * Create gRPC error
+ * @param code - gRPC status code
+ * @param message - Error message
+ * @param metadataEntries - Metadata key and value pairs (optional)
+ * @returns ServiceError object
  */
 export function createGrpcError(
   code: grpcStatus,
