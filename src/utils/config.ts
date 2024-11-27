@@ -16,6 +16,7 @@ export class Config {
       command?: string[]; // command to run in the container
       volumes?: string[]; // volumes to mount
       network?: string; // network to run the container in
+      env_file?: string[]; // env file to load
     }
   } = {}
 
