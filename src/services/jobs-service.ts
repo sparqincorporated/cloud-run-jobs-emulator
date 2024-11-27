@@ -46,14 +46,14 @@ export const JobsService = {
       const job = config.jobs[call.request.name];
       logger.info(`Running job: ${call.request.name}`, { job });
 
-      // 環境変数を取得
+      // Get environment variables
       const fileEnvs = getEnvs(job.env_file, "/env");
       const env =
         call.request.overrides.containerOverrides[0]?.env.map(
           (e) => `${e.name}=${e.value}`
         ) || [];
 
-      // コンテナの作成
+      // Create container
       const containerName =
         job.name == null
           ? dockerNames.getRandomName()
@@ -85,7 +85,7 @@ export const JobsService = {
       });
 
       if ("code" in error) {
-        throw error; // gRPC用エラーの再スロー
+        throw error; // Re-throw gRPC error
       }
 
       throw createGrpcError(grpcStatus.INVALID_ARGUMENT, error.message, {

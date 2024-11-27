@@ -6,13 +6,13 @@ const parseEnv = (filePath: string): string[] => {
   const envFileContent = fs.readFileSync(envPath, 'utf8');
 
   const envLines = envFileContent.split('\n').filter(line => {
-    // コメントや空行をスキップ
+    // Skip comments and empty lines
     const trimmedLine = line.trim()
     return trimmedLine && !trimmedLine.startsWith('#')
   })
 
   return envLines.map(line => {
-    // キーと値を分割してオブジェクトに追加
+    // Split key and value and add to object
     const trimmedLine = line.trim()
     const [key, ...valueParts] = trimmedLine.split('=');
     const value = valueParts.join('=').trim();
@@ -23,15 +23,15 @@ const parseEnv = (filePath: string): string[] => {
 
 const resolveEnvFilePaths = (envFiles: string[], composeDir: string): string[] => {
   return envFiles.map((filePath) => {
-    // 絶対パスが指定されている場合、そのまま返す
+    // Return absolute path if specified
     if (path.isAbsolute(filePath)) {
       throw new Error(`Absolute path is not allowed: ${filePath}`)
     }
 
-    // 相対パスの場合、docker-compose.yml のディレクトリを基準に解決
+    // Resolve relative path based on docker-compose.yml directory
     const resolvedPath = path.resolve(composeDir, filePath);
-    
-    // ファイルが存在するか確認
+
+    // Check if file exists
     if (!fs.existsSync(resolvedPath)) {
       throw new Error(`Env file not found: ${resolvedPath}`);
     }

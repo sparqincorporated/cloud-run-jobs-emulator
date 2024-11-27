@@ -15,7 +15,7 @@ export function createGrpcError(
 ): ServiceError {
   const metadata = new Metadata();
 
-  // Metadata初期化
+  // Initialize metadata
   if (metadataEntries) {
     Object.entries(metadataEntries).forEach(([key, value]) => {
       metadata.add(key, value);
